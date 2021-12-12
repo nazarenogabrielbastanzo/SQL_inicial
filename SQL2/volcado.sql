@@ -31,7 +31,7 @@ CREATE TABLE INSCRIPCION (
   numero INT,
   CURSO_codigo INT,
   ESTUDIANTE_legajo INT,
-  fecha_hora TIMESTAMP,
+  fecha_hora DATETIME,
   PRIMARY KEY (numero),
   CONSTRAINT FK_CursoCodigo FOREIGN KEY (CURSO_codigo) REFERENCES CURSO(codigo),
   CONSTRAINT FK_EstudianteLegajo FOREIGN KEY (ESTUDIANTE_legajo) REFERENCES ESTUDIANTE(legajo)
