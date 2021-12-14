@@ -1,28 +1,24 @@
 /* Nombre, apellido y cursos que realiza cada estudiante */
-SELECT e.nombre AS "Nombre",
-e.apellido AS "Apellido",
-c.nombre AS "Curso"
-FROM ESTUDIANTE AS e INNER JOIN CURSO AS c;
+SELECT est.nombre 'Nombre', est.apellido 'Apellido', cur.nombre 'Curso' 
+FROM ESTUDIANTE est INNER JOIN CURSO cur
+ON est.legajo IN (SELECT ESTUDIANTE_legajo FROM INSCRIPCION);
 
 /* Nombre, apellido y cursos que realiza cada estudiante, ordenados por el nombre del curso */
-SELECT e.nombre AS "Nombre",
-e.apellido AS "Apellido",
-c.nombre AS "Curso"
-FROM ESTUDIANTE AS e INNER JOIN CURSO AS c
-ORDER BY c.nombre;
+SELECT est.nombre 'Nombre', est.apellido 'Apellido', cur.nombre 'Curso' 
+FROM ESTUDIANTE est INNER JOIN CURSO cur
+ON est.legajo IN (SELECT ESTUDIANTE_legajo FROM INSCRIPCION)
+ORDER BY cur.nombre;
 
 /* Nombre, apellido y cursos que dicta cada profesor */
-SELECT p.nombre AS "Nombre",
-p.apellido AS "Apellido",
-c.nombre AS "Curso"
-FROM PROFESOR AS p INNER JOIN CURSO AS c;
+SELECT pro.nombre AS 'Nombre', pro.apellido AS 'Apellido', cur.nombre AS 'Curso'
+FROM PROFESOR AS pro INNER JOIN CURSO AS cur
+ON pro.id = cur.PROFESOR_id;
 
 /* Nombre, apellido y cursos que dicta cada profesor, ordenados por el nombre del curso */
-SELECT p.nombre AS "Nombre",
-p.apellido AS "Apellido",
-c.nombre AS "Curso"
-FROM PROFESOR AS p INNER JOIN CURSO AS c
-ORDER BY c.nombre;
+SELECT pro.nombre AS 'Nombre', pro.apellido AS 'Apellido', cur.nombre AS 'Curso'
+FROM PROFESOR AS pro INNER JOIN CURSO AS cur
+ON pro.id = cur.PROFESOR_id
+ORDER BY cur.nombre;
 
 /* Cupo disponible para cada curso (Si el cupo es de 35 estudiantes y hay 5 inscriptos, el cupo disponible será 30) */
 SELECT cur.nombre, cur.cupo, COUNT(ins.CURSO_codigo) AS 'Ocupado',
