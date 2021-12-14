@@ -25,11 +25,15 @@ FROM PROFESOR AS p INNER JOIN CURSO AS c
 ORDER BY c.nombre;
 
 /* Cupo disponible para cada curso (Si el cupo es de 35 estudiantes y hay 5 inscriptos, el cupo disponible será 30) */
-SELECT c.nombre, c.cupo, COUNT(i.curso_codigo) AS Ocupado,
-c.cupo - COUNT(i.curso_codigo) AS Disponible
-FROM CURSO c LEFT JOIN INSCRIPCION i
-ON c.codigo = i.curso_codigo
-GROUP BY c.codigo;
+SELECT cur.nombre, cur.cupo, COUNT(ins.CURSO_codigo) AS 'Ocupado',
+cur.cupo - COUNT(ins.CURSO_codigo) AS 'Disponible'
+FROM CURSO cur LEFT JOIN INSCRIPCION ins
+ON cur.codigo = ins.CURSO_codigo
+GROUP BY cur.cupo, CUR.nombre;
 
 /* Cursos cuyo cupo disponible sea menor a 10 */
-/* ? */
+SELECT cur.nombre AS 'Cursos' FROM CURSO AS cur
+LEFT JOIN INSCRIPCION AS ins
+ON cur.codigo = ins.CURSO_codigo
+GROUP BY cur.cupo, cur.nombre
+HAVING cur.cupo - COUNT(ins.CURSO_codigo) < 10;
